@@ -84,14 +84,16 @@
         if($pw != $pw2) {
             array_push($error_array, "Passwords don't match.<br/>");
         } else {
-            if(preg_match('/[^A-Za-z0-9]', $pw)) {
+            if(preg_match('/[^A-Za-z0-9]/', $pw)) {
                 array_push($error_array, "Your password can only contain english letters or numbers.<br/>");
-            }
+            };
         };
 
-        if(strlen($pw > 30 || strlen($pw > 5))) {
-            array_push($error_array, "Your password must be between 5 and 30 characters long!<br/>");
-        }
+        if(strlen($pw) > 30) {
+            array_push($error_array, "Your password must be less than 30 characters long!<br/>");
+        } else if (strlen($pw) < 5) {
+            array_push($error_array, "Your password must be at least 5 characters long!<br/>");
+        };
 
         if(empty($error_array)) {
             $pw = md5($pw); //Encrypting the password before storing it in database.
@@ -105,10 +107,70 @@
                 $i++;
                 $username = $username . '_' . $i;
                 $check_username_query = mysqli_query($con, "SELECT username FROM users WHERE username='$username'");
-            }   
+            };
+            
+            //Generate profile picture for users
+            $rand = rand(1,16);
+            switch($rand) {
+                case 1:
+                    $profile_pic = "assets/images/default_profile_pictures/head_alizarin.png";
+                    break;
+                case 2:
+                    $profile_pic = "assets/images/default_profile_pictures/head_amethyst.png";
+                    break;
+                case 3:
+                    $profile_pic = "assets/images/default_profile_pictures/head_belize_hole.png";
+                    break;
+                case 4:
+                    $profile_pic = "assets/images/default_profile_pictures/head_carrot.png";
+                    break;
+                case 5:
+                    $profile_pic = "assets/images/default_profile_pictures/head_deep_blue.png";
+                    break;
+                case 6:
+                    $profile_pic = "assets/images/default_profile_pictures/head_emerald.png";
+                    break;
+                case 7:
+                    $profile_pic = "assets/images/default_profile_pictures/head_green_sea.png";
+                    break;
+                case 8:
+                    $profile_pic = "assets/images/default_profile_pictures/head_nephritis.png";
+                    break;
+                case 9:
+                    $profile_pic = "assets/images/default_profile_pictures/head_pete_river.png";
+                    break;
+                case 10:
+                    $profile_pic = "assets/images/default_profile_pictures/head_pomegranate.png";
+                    break;
+                case 11:
+                    $profile_pic = "assets/images/default_profile_pictures/head_pumpkin.png";
+                    break;
+                case 12:
+                    $profile_pic = "assets/images/default_profile_pictures/head_red.png";
+                    break;
+                case 13:
+                    $profile_pic = "assets/images/default_profile_pictures/head_sun_flower.png";
+                    break;
+                case 14:
+                    $profile_pic = "assets/images/default_profile_pictures/head_turqoise.png";
+                    break;
+                case 15:
+                    $profile_pic = "assets/images/default_profile_pictures/head_wet_asphalt.png";
+                    break;
+                case 16:
+                    $profile_pic = "assets/images/default_profile_pictures/head_wisteria.png";
+                    break;
+            };
+            $query = mysqli_query($con, "INSERT INTO users VALUES ('', '$fname', '$lname', '$username', '$em', '$pw', '$date', '$profile_pic', '0', '0', 'no', ',')");
 
-        }
+            array_push($error_array, "<span style='color: #14C800;'>You're all set to login!</span><br/>");
 
+            //Clear Session
+            $_SESSION['reg_fname'] = '';
+            $_SESSION[ 'reg_lname' ] = '';
+            $_SESSION[ 'reg_email' ] = '';
+            $_SESSION[ 'reg_email2' ] = '';
+        };
     };
 ?>
 <html lang="en">
@@ -165,10 +227,17 @@
         <?php if(in_array("Your password can only contain english letters or numbers.<br/>", $error_array)) 
         echo "Your password can only contain english letters or numbers.<br/>";
         ?>
-        <?php if(in_array("Your password must be between 5 and 30 characters long!<br/>" ,$error_array)) 
-        echo "Your password must be between 5 and 30 characters long!<br/>";
+        <?php if(in_array("Your password must be less than 30 characters long!<br/>" ,$error_array)) 
+        echo "Your password must be less than 30 characters long!<br/>";
+        ?>
+        <?php if(in_array("Your password must be at less 5 characters long!<br/>", $error_array)) 
+        echo  "Your password must be at least 5 characters long!<br/>";
         ?>
         <input type="submit" name="reg_button" value="Register">
+        <br/>
+        <?php if(in_array("<span style='color: #14C800;'>You're all set to login!</span><br/>", $error_array))
+        echo "<span style='color: #14C800;'>You're all set to login!</span><br/>";
+        ?>
     </form>
 
 </body>
