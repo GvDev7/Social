@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <?php
-$con = mysqli_connect("localhost","root","", "social");  // Establishing connection with server name, username and password.
-if(mysqli_connect_errno()) {
-    echo "Failed to connect: " . mysqli_connect_errno();
-}
+require 'config/connection.php';
 
 ?>
 
@@ -15,5 +12,6 @@ if(mysqli_connect_errno()) {
 </head>
 <body>
     <h1>Welcome to GV World!</h1>
+
 </body>
 </html>
