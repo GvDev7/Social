@@ -15,6 +15,19 @@
     <script src="assets/js/script.js"></script>
 </head>
 <body>
+    <?php
+    if(isset($_POST['reg_button'])) {
+        echo '
+        <script>
+        $(document).ready(function() {
+            $(".first").hide();
+            $(".second").show();
+        });
+        </script>
+        ';
+    }
+
+    ?>
     <div class="wrapper">
         <div class="login_box">
             <div class="login_header">
