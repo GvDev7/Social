@@ -1,0 +1,26 @@
+body {
+    line-height: 17px;
+}
+
+.top_bar {
+    width: 100%;
+    min-width: 1000px;
+    height: 40px;
+    background-color: #3498db;
+    border-bottom: 0.25em solid #2980b9;
+    margin: 0 0 10px 0;
+    display: inline-flex;
+}
+
+.logo {
+    font-family: fantasy;
+    font-size: 170%;
+    margin-left: 10px;
+    position: relative;
+    top: 10px;
+    text-shadow: #73B6E2 0.5px 0.5px 0px;
+}
+
+.logo:hover {
+    text-decoration: none;
+}

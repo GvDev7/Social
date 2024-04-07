@@ -1,17 +1,10 @@
 <!DOCTYPE html>
 <?php
-require 'config/connection.php';
-
+include("includes/headers.php");
+session_destroy();  // destroy the session if it is still open
 ?>
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DEV-World</title>
-</head>
-<body>
-    <h1>Welcome to GV World!</h1>
+    <h1>Welcome to DEV World!</h1>
 
 </body>
 </html>
